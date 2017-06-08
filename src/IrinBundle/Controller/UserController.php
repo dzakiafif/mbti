@@ -189,9 +189,10 @@ class UserController extends Controller
                         ->setPassword('irin2017');
 
             $message = \Swift_Message::newInstance();
+            $message->setSubject('Reset Password');
             $message->setFrom('admin@irin.co.id');
             $message->setTo([$request->get('email')]);
-            $message->setBody('test');
+            $message->setBody($this->render('IrinBundle:User:forget-tmp.html.twig',['username'=>$data->getUsername(),'host'=>$request->getHost(),'token'=>$token]));
 
             $mailer = \Swift_Mailer::newInstance($transport);
             $mailer->send($message);
@@ -200,5 +201,27 @@ class UserController extends Controller
         }
 
         return $this->render('IrinBundle:User:forgot-password.html.twig');
+    }
+
+    public function resetAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $data = $em->getRepository(User::class)->findByToken($request->get('token'));
+
+        $asem = $data[0];
+
+        if($request->getMethod() == 'POST'){
+            if($asem instanceof User){
+                $asem->setPassword($request->get('password'));
+                $asem->setToken('');
+            }
+            $em->persist($asem);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('irin_login'));
+        }
+
+        return $this->render('IrinBundle:User:reset-password.html.twig');
     }
 }

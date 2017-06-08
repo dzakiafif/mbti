@@ -10,6 +10,10 @@ irin_forgot:
       path: /forgot-password
       defaults: { _controller: IrinBundle:User:forgetPassword }
 
+irin_reset:
+      path: /reset/{token}
+      defaults: { _controller: IrinBundle:User:reset }
+
 irin_kepribadian:
       path: /user/kepribadian
       defaults: { _controller: IrinBundle:User:kepribadian }
