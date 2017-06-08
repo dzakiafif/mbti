@@ -1,0 +1,35 @@
+irin_home:
+      path: /
+      defaults: { _controller: IrinBundle:User:home }
+
+irin_register:
+      path: /register
+      defaults: { _controller: IrinBundle:User:create }
+
+irin_forgot:
+      path: /forgot-password
+      defaults: { _controller: IrinBundle:User:forgetPassword }
+
+irin_kepribadian:
+      path: /user/kepribadian
+      defaults: { _controller: IrinBundle:User:kepribadian }
+
+irin_list_kepribadian:
+      path: /user/list-kepribadian
+      defaults: { _controller: IrinBundle:User:listKepribadian }
+
+irin_login:
+      path: /login
+      defaults: { _controller: IrinBundle:User:login }
+
+irin_logout:
+      path: /logout
+      defaults: { _controller: IrinBundle:User:logout }
+
+irin_update_user:
+      path: /user/update/{id}
+      defaults: { _controller: IrinBundle:User:update }
+
+irin_list_user:
+      path: /user/list
+      defaults: { _controller: IrinBundle:User:list }

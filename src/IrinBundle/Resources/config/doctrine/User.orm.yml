@@ -1,0 +1,43 @@
+IrinBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: IrinBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        alamat:
+            type: string
+            length: 255
+            nullable: true
+        profilePicture:
+            type: text
+            nullable: true
+            column: profile_picture
+        noHp:
+            type: string
+            length: 255
+            column: no_hp
+            nullable: true
+        token:
+            type: string
+            length: 255
+            nullable: true
+        role:
+            type: integer
+        isValidated:
+            type: integer
+            column: is_validated
+    lifecycleCallbacks: {  }

@@ -1,0 +1,63 @@
+{% extends 'subLayout.html.twig' %}
+
+{% block title %}Daftar Pengguna{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="container-fluid">
+            <h3 class="page-title"><center>Daftar Pengguna</center></h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>No.HP</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set i = 1 %}
+                                    {% if data|length > 0 %}
+                                        {% for dat in data %}
+                                            <tr>
+                                                <td>{{ i }}</td>
+                                                <td>{{ dat.username }}</td>
+                                                <td>{{ dat.email }}</td>
+                                                <td>{{ dat.alamat }}</td>
+                                                <td>{{ dat.noHp }}</td>
+                                                <td>
+                                                    {% if dat.isValidated == 0 %}
+                                                        <span class="label label-danger">Belum Tervalidasi</span>
+                                                    {% else %}
+                                                        <span class="label label-success">Tervalidasi</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a><button class="btn btn-primary"><i class="lnr lnr-user"></i></button></a>
+                                                    <button class="btn btn-warning"><i class="lnr lnr-users"></i></button>
+                                                    <button class="btn btn-danger"><i class="lnr lnr-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            {% set i = i + 1 %}
+                                        {% endfor %}
+                                    {% else %}
+                                            <tr>
+                                                <td>tidak ada data</td>
+                                            </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

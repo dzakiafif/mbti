@@ -1,0 +1,25 @@
+{% extends 'subLayout.html.twig' %}
+
+{% block title %}Selamat datang{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="panel panel-headline">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="metric">
+                                <span class="icon"><i class="lnr lnr-user"></i></span>
+                                <p>
+                                    <span class="number">{{ user }}</span>
+                                    <span class="title">User</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

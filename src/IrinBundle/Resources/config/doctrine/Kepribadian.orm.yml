@@ -1,0 +1,25 @@
+IrinBundle\Entity\Kepribadian:
+    type: entity
+    table: null
+    repositoryClass: IrinBundle\Repository\KepribadianRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToOne:
+        userId:
+           targetEntity: User
+           joinColumn:
+              name: user_id
+              referencedColumns: id
+    fields:
+        jawaban:
+            type: text
+            nullable: true
+        hasil:
+            type: string
+            length: 255
+            nullable: true
+    lifecycleCallbacks: {  }
