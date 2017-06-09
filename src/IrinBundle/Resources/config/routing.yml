@@ -6,6 +6,10 @@ irin_register:
       path: /register
       defaults: { _controller: IrinBundle:User:create }
 
+irin_delete_user:
+      path: /user/delete/{id}
+      defaults: { _controller: IrinBundle:User:deleteUser }
+
 irin_forgot:
       path: /forgot-password
       defaults: { _controller: IrinBundle:User:forgetPassword }
@@ -25,6 +29,10 @@ irin_list_kepribadian:
 irin_login:
       path: /login
       defaults: { _controller: IrinBundle:User:login }
+
+irin_update_user:
+      path: /user/update
+      defaults: { _controller: IrinBundle:User:updateProfile }
 
 irin_logout:
       path: /logout

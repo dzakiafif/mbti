@@ -78,6 +78,24 @@ class UserController extends Controller
         return $this->render('IrinBundle:Kepribadian:list-kepribadian.html.twig',['kepribadian'=>$kepribadian->getJawaban()]);
     }
 
+    public function deleteUserAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $data = $em->getRepository(User::class)->findById($id);
+
+        $em->remove($data);
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('irin_list_user'));
+    }
+
+    public function updateProfileAction()
+    {
+        return $this->render('IrinBundle:User:update-profile.html.twig');
+    }
+
     public function homeAction(Request $request)
     {
         if($request->getSession()->get('role')== null){
