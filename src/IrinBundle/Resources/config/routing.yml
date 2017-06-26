@@ -1,14 +1,19 @@
-irin_home:
+irin_user:
+      resource: "@IrinBundle/Resources/config/routing/routing_user.yml"
+      prefix: /user
+
+irin_admin:
+      resource: "@IrinBundle/Resources/config/routing/routing_admin.yml"
+      prefix: /admin
+
+irin_index:
       path: /
-      defaults: { _controller: IrinBundle:User:home }
+      defaults:
+        _controller: IrinBundle:Security:loginCheck
 
 irin_register:
       path: /register
       defaults: { _controller: IrinBundle:User:create }
-
-irin_delete_user:
-      path: /user/delete/{id}
-      defaults: { _controller: IrinBundle:User:deleteUser }
 
 irin_forgot:
       path: /forgot-password
@@ -18,30 +23,6 @@ irin_reset:
       path: /reset/{token}
       defaults: { _controller: IrinBundle:User:reset }
 
-irin_kepribadian:
-      path: /user/kepribadian
-      defaults: { _controller: IrinBundle:User:kepribadian }
-
-irin_list_kepribadian:
-      path: /user/list-kepribadian
-      defaults: { _controller: IrinBundle:User:listKepribadian }
-
-irin_login:
-      path: /login
-      defaults: { _controller: IrinBundle:User:login }
-
-irin_update_user:
-      path: /user/update
-      defaults: { _controller: IrinBundle:User:updateProfile }
-
 irin_logout:
       path: /logout
-      defaults: { _controller: IrinBundle:User:logout }
 
-irin_update_user:
-      path: /user/update/{id}
-      defaults: { _controller: IrinBundle:User:update }
-
-irin_list_user:
-      path: /user/list
-      defaults: { _controller: IrinBundle:User:list }

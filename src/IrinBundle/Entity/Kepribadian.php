@@ -52,7 +52,7 @@ class Kepribadian
      * @param $userId
      * @return User
      */
-    public function setUserId($userId)
+    public function setUserId(User $userId)
     {
         $this->userId = $userId;
 

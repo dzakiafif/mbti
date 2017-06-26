@@ -12,8 +12,12 @@
                         <div class="profile-header">
                             <div class="overlay"></div>
                             <div class="profile-main">
-                                <img src="{{ asset('backend') }}/img/user-medium.png" class="img-circle" alt="Avatar">
-                                <h3 class="name">Samuel Gold</h3>
+                                {% if app.user.profilePicture is null %}
+                                    <img src="{{ asset('backend') }}/img/user-medium.png" class="img-circle" alt="Avatar">
+                                {% else %}
+                                    <img src="{{ asset('uploads') }}/images/profile/{{ app.user.profilePicture }}" height="150" class="img-circle" alt="">
+                                {% endif %}
+                                <h3 class="name">{% if app.user.username is defined %}{{ app.user.username }}{% else %}-{% endif %}</h3>
                             </div>
                         </div>
                         <!-- END PROFILE HEADER -->
@@ -22,17 +26,13 @@
                             <div class="profile-info">
                                 <h4 class="heading">Basic Info</h4>
                                 <ul class="list-unstyled list-justify">
-                                    <li>Birthdate <span>24 Aug, 2016</span></li>
-                                    <li>Mobile <span>(124) 823409234</span></li>
-                                    <li>Email <span>samuel@mydomain.com</span></li>
-                                    <li>Website <span><a href="https://www.themeineed.com">www.themeineed.com</a></span></li>
+                                    <li>Nama <span>{% if app.user.nama is defined %}{{ app.user.nama }}{% else %}-{% endif %}</span></li>
+                                    <li>Email <span>{% if app.user.email is defined %}{{ app.user.email }}{% else %}-{% endif %}</span></li>
+                                    <li>Alamat <span>{% if app.user.alamat is defined %}{{ app.user.alamat }}{% else %}-{% endif %}</span></li>
+                                    <li>No.HP <span>{% if app.user.noHp is defined %}{{ app.user.noHp }}{% else %}-{% endif %}</span></li>
                                 </ul>
                             </div>
-                            <div class="profile-info">
-                                <h4 class="heading">About</h4>
-                                <p>Interactively fashion excellent information after distinctive outsourcing.</p>
-                            </div>
-                            <div class="text-center"><a href="#" class="btn btn-primary">Edit Profile</a></div>
+                            <div class="text-center"><a href="{{ path('irin_user_update') }}" class="btn btn-primary">Edit Profile</a></div>
                         </div>
                         <!-- END PROFILE DETAIL -->
                     </div>

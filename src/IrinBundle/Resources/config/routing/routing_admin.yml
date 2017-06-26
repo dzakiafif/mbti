@@ -1,0 +1,10 @@
+irin_admin_index:
+      path: /
+      defaults:
+        _controller: IrinBundle:Admin:index
+
+irin_admin_list:
+      path: /list-user
+      defaults:
+        _controller: IrinBundle:Admin:list
+

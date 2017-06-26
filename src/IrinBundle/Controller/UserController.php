@@ -9,9 +9,11 @@
 namespace IrinBundle\Controller;
 
 
+use IrinBundle\Entity\ImageResize;
 use IrinBundle\Entity\Kepribadian;
 use IrinBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
@@ -24,8 +26,9 @@ class UserController extends Controller
             $user = new User();
             $user->setUsername($request->get('username'));
             $user->setPassword($request->get('password'));
-            $user->setEmail($request->get('email'));
+//            $user->setEmail($request->get('email'));
             $user->setRole(1);
+            $user->setRoles(serialize(['ROLE_USER']));
             $user->setIsValidated(0);
 
             $em->persist($user);
@@ -41,9 +44,10 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $data = $em->getRepository(Kepribadian::class)->findByUserId($request->getSession()->get('uid'));
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $user = $em->getRepository(User::class)->findById($request->getSession()->get('uid')['value']);
+        $data = $em->getRepository(Kepribadian::class)->findByUserId($user->getId());
+
 
         if($request->getMethod() == 'POST')
         {
@@ -57,7 +61,7 @@ class UserController extends Controller
             $em->persist($data);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('irin_list_kepribadian'));
+            return $this->redirect($this->generateUrl('irin_user_list_kepribadian'));
         }
 
         return $this->render('IrinBundle:Kepribadian:kepribadian.html.twig');
@@ -67,15 +71,19 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $kepribadian = $em->getRepository(Kepribadian::class)->findByUserId($request->getSession()->get('uid'));
+        $kepribadian = $this->get('security.token_storage')->getToken()->getUser();
 
-        if(isset($kepribadian)){
-            unserialize($kepribadian->getJawaban());
+        $data = $em->getRepository(Kepribadian::class)->findByUserId($kepribadian->getId());
+
+//        return var_dump(unserialize($data->getJawaban()));
+
+        if(isset($data)){
+            unserialize($data->getJawaban());
         }else{
-            return $this->redirect($this->generateUrl('irin_kepribadian'));
+            return $this->redirect($this->generateUrl('irin_user_kepribadian'));
         }
 
-        return $this->render('IrinBundle:Kepribadian:list-kepribadian.html.twig',['kepribadian'=>$kepribadian->getJawaban()]);
+        return $this->render('IrinBundle:Kepribadian:list-kepribadian.html.twig',['kepribadian'=>unserialize($data->getJawaban())]);
     }
 
     public function deleteUserAction($id)
@@ -93,63 +101,24 @@ class UserController extends Controller
 
     public function updateProfileAction()
     {
-        return $this->render('IrinBundle:User:update-profile.html.twig');
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        return $this->render('IrinBundle:User:update-profile.html.twig',['user'=>$user]);
     }
 
     public function homeAction(Request $request)
     {
-        if($request->getSession()->get('role')== null){
-            return $this->redirect($this->generateUrl('irin_login'));
-        }
-
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $user = count($em->getRepository(User::class)->findAll());
-
-        return $this->render('IrinBundle:Home:home.html.twig',['user'=>$user]);
+        
+        return $this->render('IrinBundle:Home:home.html.twig');
     }
 
     public function listAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
 
-        $data = $em->getRepository(User::class)->findAll();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        return $this->render('IrinBundle:User:list.html.twig',['data'=>$data]);
-    }
-
-    public function loginAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        if($request->getMethod() == 'POST')
-        {
-            $username = $request->get('username');
-            $password = md5($request->get('password'));
-
-            $data = $em->getRepository(User::class)->findByUsername($username);
-
-            if($data instanceof User)
-            {
-                if($data != null){
-                    if($password == $data->getPassword()){
-                        $session = $request->getSession();
-
-                        $session->set('uid',['value'=>$data->getId()]);
-                        $session->set('uname',['value'=>$data->getUsername()]);
-                        $session->set('email',['value'=>$data->getEmail()]);
-                        $session->set('role',['value'=>$data->getRole()]);
-
-                        return $this->redirect($this->generateUrl('irin_home'));
-                    }else{
-                        return 'ingat kembali password anda';
-                    }
-                }else{
-                    return 'tidak ada data anda';
-                }
-            }
-        }
-        return $this->render('IrinBundle:User:login.html.twig');
+        return $this->render('IrinBundle:User:list.html.twig',['user'=>$user]);
     }
 
     public function logoutAction(Request $request)
@@ -160,32 +129,64 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('irin_login'));
     }
 
-    public function updateAction($id,Request $request)
+    public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $data = $em->getRepository(User::class)->findById($id);
+        $data = $this->get('security.token_storage')->getToken()->getUser();
 
         if($request->getMethod() == 'POST'){
 
-            $file = $request->files->get('profile-picture');
-
-            $filename = md5(uniqid()) . $file->guessExtension();
-
-            $file->move($this->getParameter('profile_directory')['resource'],$filename);
 
             if($data instanceof User){
-                if($data->getRole() == 1){
-                    $data->setPassword($request->get('password'));
+                    // $data->setPassword($request->get('password'));
+                    $data->setEmail($request->get('email'));
+                    $data->setNama($request->get('nama'));
                     $data->setAlamat($request->get('alamat'));
                     $data->setNoHp($request->get('no-hp'));
-                    $data->setProfilePicture($filename);
+
+                    if(!is_dir($this->getParameter('profile_directory')['resource'])){
+                        @mkdir($this->getParameter('profile_directory')['resource'],0755,true);
+                    }
+
+                $file = $request->files->get('profile_picture');
+
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+
+                $exAllowed = array('jpg', 'png', 'jpeg');
+
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                if (in_array($ext, $exAllowed)) {
+                    if ($file instanceof UploadedFile) {
+                        if (!($file->getClientSize() > (1024 * 1024 * 1))) {
+                            ImageResize::createFromFile(
+                                $request->files->get('profile_picture')->getPathName()
+                            )->saveTo($this->getParameter('profile_directory')['resource'] . '/' . $filename, 20, true);
+                            $data->setProfilePicture($filename);
+                        } else {
+                            return 'gambar tidak boleh lebih dari 1 MB';
+                        }
+                    }
+                } else {
+                    return 'cek kembali extension gambar anda';
                 }
 
+//                    if(!empty($request->files->get('profile_picture'))){
+//
+//                    }
+
+
             }
-            $em->persist($data);
-            $em->flush();
+
+//            return var_dump($data);
+             $em->persist($data);
+             $em->flush();
+
+            return $this->redirect($this->generateUrl('irin_update_user_view'));
         }
+
+        return $this->render('IrinBundle:User:update.html.twig',['data'=>$data]);
     }
 
     public function forgetPasswordAction(Request $request)

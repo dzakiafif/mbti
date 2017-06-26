@@ -11,9 +11,13 @@
                 <div id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ asset('backend') }}/img/user.png" class="img-circle" alt="Avatar"> <span>{{ app.session.get('uname')['value'] }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                            {% if app.user.profilePicture is null %}
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ asset('backend') }}/img/user.png" class="img-circle" alt="Avatar"> <span>{{ app.user.username }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                            {% else %}
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ asset('uploads') }}/images/profile/{{ app.user.profilePicture }}" class="img-circle" alt="Avatar"> <span>{{ app.user.username }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                            {% endif %}
                             <ul class="dropdown-menu">
-                                <li><a href="{{ path('irin_update_user') }}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                <li><a href="{{ path('irin_update_user_view') }}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                                 <li><a href="{{ path('irin_logout') }}"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
                             </ul>
                         </li>
@@ -27,23 +31,35 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><a href="{{ path('irin_home') }}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-                        <li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('irin_admin_index') }}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li><li>
                             <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>User Management</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
                             <div id="subPages" class="collapse ">
                                 <ul class="nav">
-                                    <li><a href="{{ path('irin_list_user') }}" class="">List User</a></li>
+                                    <li><a href="{{ path('') }}" class="">List User</a></li>
                                 </ul>
                             </div>
                         </li>
-                        <li>
-                            <a href="#subPertanyaan" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span>Kepribadian</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="subPertanyaan" class="collapse">
-                                <ul class="nav">
-                                    <li><a href="{{ path('irin_kepribadian') }}">Soal</a></li>
-                                </ul>
-                            </div>
-                        </li>
+
+                        {% else %}
+                            <li><a href="{{ path('irin_user_home') }}" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+                            <li>
+                                <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>User Management</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPages" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="{{ path('irin_user_list') }}" class="">List User</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#subPertanyaan" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span>Kepribadian</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subPertanyaan" class="collapse">
+                                    <ul class="nav">
+                                        <li><a href="{{ path('irin_user_kepribadian') }}">Soal</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>

@@ -1,0 +1,27 @@
+irin_user_home:
+      path: /
+      defaults: { _controller: IrinBundle:User:home }
+
+irin_user_delete:
+      path: /delete
+      defaults: { _controller: IrinBundle:User:deleteUser }
+
+irin_user_kepribadian:
+      path: /kepribadian
+      defaults: { _controller: IrinBundle:User:kepribadian }
+
+irin_user_list_kepribadian:
+      path: /list-kepribadian
+      defaults: { _controller: IrinBundle:User:listKepribadian }
+
+irin_update_user_view:
+      path: /view-update
+      defaults: { _controller: IrinBundle:User:updateProfile }
+
+irin_user_update:
+      path: /update
+      defaults: { _controller: IrinBundle:User:update }
+
+irin_user_list:
+      path: /list
+      defaults: { _controller: IrinBundle:User:list }

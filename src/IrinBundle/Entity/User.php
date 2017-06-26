@@ -3,11 +3,12 @@
 namespace IrinBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  */
-class User
+class User implements  UserInterface, \Serializable
 {
     /**
      * @var int
@@ -23,6 +24,11 @@ class User
      * @var string
      */
     private $password;
+
+    /**
+     * @var string
+     */
+    private $nama;
 
     /**
      * @var string
@@ -53,6 +59,11 @@ class User
      * @var int
      */
     private $role;
+
+    /**
+     * @var string
+     */
+    private $roles;
 
     /**
      * @var int
@@ -96,6 +107,25 @@ class User
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * @param $nama
+     * @return User
+     */
+    public function setNama($nama)
+    {
+        $this->nama = $nama;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNama()
+    {
+        return $this->nama;
     }
 
     /**
@@ -260,6 +290,29 @@ class User
     }
 
     /**
+     * Set Role
+     *
+     * @return self
+     * @param string $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoles()
+    {
+        $roles = unserialize($this->roles);
+
+        return $roles;
+    }
+
+    /**
      * Set isValidated
      *
      * @param integer $isValidated
@@ -280,5 +333,38 @@ class User
     public function getIsValidated()
     {
         return $this->isValidated;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
+    public function getSalt()
+    {
+        return;
+    }
+
+
+    public function eraseCredentials()
+    {
     }
 }

@@ -24,32 +24,31 @@
                                 </thead>
                                 <tbody>
                                     {% set i = 1 %}
-                                    {% if data|length > 0 %}
-                                        {% for dat in data %}
-                                            <tr>
-                                                <td>{{ i }}</td>
-                                                <td>{{ dat.username }}</td>
-                                                <td>{{ dat.email }}</td>
-                                                <td>{{ dat.alamat }}</td>
-                                                <td>{{ dat.noHp }}</td>
-                                                <td>
-                                                    {% if dat.isValidated == 0 %}
-                                                        <span class="label label-danger">Belum Tervalidasi</span>
-                                                    {% else %}
-                                                        <span class="label label-success">Tervalidasi</span>
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    <a><button class="btn btn-primary"><i class="lnr lnr-user"></i></button></a>
-                                                    <button class="btn btn-warning"><i class="lnr lnr-users"></i></button>
-                                                    <button class="btn btn-danger"><i class="lnr lnr-trash"><a href="{{ path('irin_delete_user',{'id': dat.id}) }}"></a></i></button>
-                                                </td>
-                                            </tr>
-                                            {% set i = i + 1 %}
-                                        {% endfor %}
+                                    {% if user|length > 0 %}
+                                        <tr>
+                                            <td>{{ i }}</td>
+                                            <td>{{ user.username }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.alamat }}</td>
+                                            <td>{{ user.noHp }}</td>
+                                            <td>
+                                                {% if user.isValidated == 0 %}
+                                                    <span class="label label-danger">Belum Tervalidasi</span>
+                                                {% else %}
+                                                    <span class="label label-success">Tervalidasi</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-xs" title="Upusere Data"><i class="lnr lnr-user"></i></a>
+                                                {#<a><button class="btn btn-primary"><i class="lnr lnr-user"></i></button></a>#}
+                                                {#<button class="btn btn-warning"><i class="lnr lnr-users"></i></button>#}
+                                                {#<button class="btn btn-danger"><i class="lnr lnr-trash"><a href="{{ path('irin_delete_user',{'id': user.id}) }}"></a></i></button>#}
+                                            </td>
+                                        </tr>
+                                        {% set i = i + 1 %}
                                     {% else %}
                                             <tr>
-                                                <td>tidak ada data</td>
+                                                <td>tidak ada usera</td>
                                             </tr>
                                     {% endif %}
                                 </tbody>

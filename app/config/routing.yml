@@ -2,7 +2,11 @@ irin:
     resource: '@IrinBundle/Resources/config/routing.yml'
     prefix: /
 
+irin_login:
+      path: /login
+      defaults: { _controller: IrinBundle:Security:login }
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+
+irin_login_path:
+      path: /login_check
+      defaults: { _controller: IrinBundle:Security:loginCheck }

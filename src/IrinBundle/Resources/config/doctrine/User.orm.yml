@@ -12,6 +12,9 @@ IrinBundle\Entity\User:
         username:
             type: string
             length: 255
+        nama:
+            type: string
+            length: 255
         password:
             type: string
             length: 255
@@ -37,6 +40,9 @@ IrinBundle\Entity\User:
             nullable: true
         role:
             type: integer
+        roles:
+            type: text
+            nullable: false
         isValidated:
             type: integer
             column: is_validated
