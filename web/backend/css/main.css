@@ -1075,7 +1075,7 @@ ul.activity-list > li {
         top: 3.3em; } }
   @media screen and (max-width: 1023px) {
     .auth-box .left {
-      width: 100%;
+      width: 50%;
       position: inherit;
       padding: 30px; }
     .auth-box .right {
