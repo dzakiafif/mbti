@@ -8,3 +8,18 @@ irin_admin_list:
       defaults:
         _controller: IrinBundle:Admin:list
 
+irin_admin_edit:
+      path: /edit-user/{id}
+      defaults:
+        _controller: IrinBundle:Admin:edit
+
+irin_admin_delete:
+      path: /delete-user/{id}
+      defaults:
+        _controller: IrinBundle:Admin:delete
+
+irin_admin_validate:
+      path: /edit-validate/{id}
+      defaults:
+        _controller: IrinBundle:Admin:editValidate
+

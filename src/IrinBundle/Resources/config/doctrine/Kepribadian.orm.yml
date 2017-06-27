@@ -14,6 +14,7 @@ IrinBundle\Entity\Kepribadian:
            joinColumn:
               name: user_id
               referencedColumns: id
+              onDelete: CASCADE
     fields:
         jawaban:
             type: text

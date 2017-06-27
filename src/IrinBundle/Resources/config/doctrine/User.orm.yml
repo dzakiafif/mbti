@@ -15,12 +15,14 @@ IrinBundle\Entity\User:
         nama:
             type: string
             length: 255
+            nullable: true
         password:
             type: string
             length: 255
         email:
             type: string
             length: 255
+            nullable: true
         alamat:
             type: string
             length: 255
