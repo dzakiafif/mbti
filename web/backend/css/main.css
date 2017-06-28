@@ -114,15 +114,25 @@ footer {
 
 @media screen and (max-width: 1024px) {
   #wrapper .sidebar {
-    left: -260px; }
+    left: 10px; }
   #wrapper .main {
-    width: 100%; }
+    width: 75%; }
   #wrapper .navbar {
     left: 0 !important; }
   #wrapper .btn-toggle-fullwidth {
     color: #00AAFF; }
   .btn-toggle-minified {
-    display: none; } }
+    display: none; }
+}
+
+@media screen and (max-width: 990px) {
+  #wrapper .main {
+    width: 70%;
+  }
+  .panel-body {
+    width: 30%;
+  }
+}
 
 .main-content {
   padding: 28px 10px; }
@@ -1070,7 +1080,7 @@ ul.activity-list > li {
       width: 35%; } }
   @media screen and (max-width: 1279px) {
     .auth-box {
-      width: 90%; }
+      width: 55%; }
       .auth-box .left {
         top: 3.3em; } }
   @media screen and (max-width: 1023px) {
@@ -1093,6 +1103,56 @@ ul.activity-list > li {
         width: 95%; }
       .auth-box.lockscreen {
         width: 90%; } }
+
+  @media screen and (max-width: 540px) {
+    .auth-box .left {
+      width: 70%;
+      margin-left: 15%;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    .auth-box .left {
+      width: 70%;
+      margin-left: 15%;
+    }
+  }
+
+  @media screen and (max-width: 378px) {
+    .auth-box .left {
+      width: 90%;
+      margin-left: 5%;
+    }
+  }
+
+  @media screen and (max-width: 315px) {
+    .auth-box .left {
+      width: 90%;
+      margin-left: 5%;
+    }
+  }
+
+  @media screen and (max-width: 296px) {
+    .auth-box .left {
+      width: 100%;
+      margin-left: 2%;
+    }
+  }
+
+  @media screen and (max-width: 267px) {
+    .auth-box .left {
+      width: 105%;
+      margin-left: -3px;
+    }
+  }
+
+  @media screen and (max-width: 255px) {
+    .auth-box .left {
+      width: 110%;
+      margin-left: -5px;
+    }
+  }
+
 
 /********************
  * HELPERS
