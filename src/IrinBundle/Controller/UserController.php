@@ -83,7 +83,9 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('irin_user_kepribadian'));
         }
 
-        return $this->render('IrinBundle:Kepribadian:list-kepribadian.html.twig',['kepribadian'=>unserialize($data->getJawaban())]);
+        return $this->render('IrinBundle:Kepribadian:list-kepribadian.html.twig',[
+            'kepribadian'=>unserialize($data->getJawaban())
+        ]);
     }
 
     public function deleteUserAction($id)
