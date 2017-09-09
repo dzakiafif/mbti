@@ -29,7 +29,6 @@ class UserController extends Controller
 //            $user->setEmail($request->get('email'));
             $user->setRole(1);
             $user->setRoles(serialize(['ROLE_USER']));
-            $user->setIsValidated(0);
 
             $em->persist($user);
             $em->flush();
@@ -146,6 +145,7 @@ class UserController extends Controller
                     $data->setNama($request->get('nama'));
                     $data->setAlamat($request->get('alamat'));
                     $data->setNoHp($request->get('no-hp'));
+                    $data->setStatus($request->get('status'));
 
                     if(!is_dir($this->getParameter('profile_directory')['resource'])){
                         @mkdir($this->getParameter('profile_directory')['resource'],0755,true);

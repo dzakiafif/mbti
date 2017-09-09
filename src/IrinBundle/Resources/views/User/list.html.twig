@@ -5,7 +5,7 @@
 {% block content %}
     <div class="main-content">
         <div class="container-fluid">
-            <h3 class="page-title"><center>Daftar Pengguna</center></h3>
+            <h3 class="page-title" style="color: white;"><center>Daftar Pengguna</center></h3>
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">
@@ -32,14 +32,12 @@
                                             <td>{{ user.alamat }}</td>
                                             <td>{{ user.noHp }}</td>
                                             <td>
-                                                {% if user.isValidated == 0 %}
-                                                    <span class="label label-danger">Belum Tervalidasi</span>
-                                                {% else %}
-                                                    <span class="label label-success">Tervalidasi</span>
-                                                {% endif %}
+                                                {% if user.status is defined and not null %}
+                                                    {{ user.status }}
+                                                {% endif %}    
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-primary btn-xs" title="Upusere Data"><i class="lnr lnr-user"></i></a>
+                                                <a href="#" class="btn btn-primary" title="Upusere Data"><i class="lnr lnr-user"></i></a>
                                                 {#<a><button class="btn btn-primary"><i class="lnr lnr-user"></i></button></a>#}
                                                 {#<button class="btn btn-warning"><i class="lnr lnr-users"></i></button>#}
                                                 {#<button class="btn btn-danger"><i class="lnr lnr-trash"><a href="{{ path('irin_delete_user',{'id': user.id}) }}"></a></i></button>#}

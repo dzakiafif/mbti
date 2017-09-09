@@ -45,7 +45,8 @@ IrinBundle\Entity\User:
         roles:
             type: text
             nullable: false
-        isValidated:
-            type: integer
-            column: is_validated
+        status:
+            type: string
+            length: 255
+            nullable: true
     lifecycleCallbacks: {  }

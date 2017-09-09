@@ -66,9 +66,9 @@ class User implements  UserInterface, \Serializable
     private $roles;
 
     /**
-     * @var int
+     * @var string
      */
-    private $isValidated;
+    private $status;
 
     public static function create($username,$password,$email)
     {
@@ -312,27 +312,17 @@ class User implements  UserInterface, \Serializable
         return $roles;
     }
 
-    /**
-     * Set isValidated
-     *
-     * @param integer $isValidated
-     * @return User
-     */
-    public function setIsValidated($isValidated)
+    
+    public function setStatus($status)
     {
-        $this->isValidated = $isValidated;
+        $this->status = $status;
 
         return $this;
     }
 
-    /**
-     * Get isValidated
-     *
-     * @return integer 
-     */
-    public function getIsValidated()
+    public function getStatus()
     {
-        return $this->isValidated;
+        return $this->status;
     }
 
     public function serialize()

@@ -54,6 +54,7 @@ class AdminController extends Controller
                 $data->setNama($request->get('nama'));
                 $data->setAlamat($request->get('alamat'));
                 $data->setNoHp($request->get('no-hp'));
+                $data->setStatus($request->get('status'));
 
                 $file = $request->files->get('profile_picture');
 
@@ -98,9 +99,9 @@ class AdminController extends Controller
 
         $em->flush();
 
-        if (file_exists($this->getParameter('profile_directory')['resource'] . '/' . $data->getProfilePicture())) {
-            unlink($this->getParameter('profile_directory')['resource'] . '/' . $data->getProfilePicture());
-        }
+        // if (file_exists($this->getParameter('profile_directory')['resource'] . '/' . $data->getProfilePicture())) {
+        //     unlink($this->getParameter('profile_directory')['resource'] . '/' . $data->getProfilePicture());
+        // }
 
 
         return $this->redirect($this->generateUrl('irin_admin_list'));
