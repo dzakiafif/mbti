@@ -1,13 +1,25 @@
 {% extends 'layouts.html.twig' %}
 
+{% block customCSS %}
+    <style>
+        p.copyright {
+            display: block !important;
+        }
+    </style>
+{% endblock %}
+
+
 {% block inLayout %}
     <div id="wrapper">
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="brand">
-                <a href="index.html"><img src="{{ asset('backend') }}/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+                <a href="index.html"><img src="{{ asset('backend') }}/img/stt.png" alt="Klorofil Logo" style="height: 35px;"></a>
             </div>
             <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+                </div>
                 <div id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -69,10 +81,32 @@
         <div class="main" style="min-height: 594px;">
             <!-- MAIN CONTENT -->
           {% block content %}{% endblock %}
+            {#<div class="clearfix"></div>#}
+
+
+            <footer>
+                <p class="copyright">&copy; STT MALANG 2017 <img src="{{ asset('backend') }}/img/stt.png" height="50" alt=""></p>
+            </footer>
         </div>
             <!-- END MAIN CONTENT -->
-        </div>
+
+        {#<div class="container-fluid">#}
+        {#<div class="row">#}
+        {#<div class="col-md-12">#}
+        {#<p class="copyright" style="color: white;">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>#}
+
+        {#</div>#}
+        {#</div>#}
+        {#</div>#}
+        {#<div class="container-fluid">#}
+        {#<div class="row">#}
+        {#<div class="col-md-12">#}
+        {#</div>#}
+        {#</div>#}
+        {#</div>#}
+    </div>
         <!-- END MAIN -->
-        <div class="clearfix"></div>
+
+
 
 {% endblock %}
